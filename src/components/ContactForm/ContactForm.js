@@ -1,10 +1,10 @@
-import { Formik} from 'formik';
+import { Formik } from 'formik';
 import {
   Form,
   StyledLabel,
   Field,
   FormButton,
-  ErrorMessage
+  ErrorMessage,
 } from './ContactForm.styled';
 import * as Yup from 'yup';
 
@@ -28,7 +28,7 @@ export const ContactForm = ({ updateContact }) => {
           name: '',
           number: '',
         }}
-        validationSchema = {contactSchema}
+        validationSchema={contactSchema}
         onSubmit={(values, actions) => {
           updateContact(values);
           actions.resetForm();
@@ -38,13 +38,13 @@ export const ContactForm = ({ updateContact }) => {
           <StyledLabel htmlFor="name">
             Name:
             <Field name="name" />
-            <ErrorMessage name="name" component="span"/>
+            <ErrorMessage name="name" component="span" />
           </StyledLabel>
 
           <StyledLabel htmlFor="number">
             Number:
             <Field name="number" type="tel" />
-            <ErrorMessage name="number" component="span"/>
+            <ErrorMessage name="number" component="span" />
           </StyledLabel>
 
           <FormButton type="submit">Add contact</FormButton>
