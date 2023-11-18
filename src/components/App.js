@@ -26,17 +26,18 @@ export class App extends Component {
   };
   addContact = newContact => {
     const contact = { ...newContact, id: nanoid() };
-    const checkContact = this.state.contacts.find(contact => contact.name.toLowerCase() === newContact.name.toLowerCase());
+    const checkContact = this.state.contacts.find(
+      contact => contact.name.toLowerCase() === newContact.name.toLowerCase()
+    );
 
     if (checkContact) {
-      alert('Contact with this name already exists');
+      alert(`${newContact.name} is already in contacts.`);
       return;
     }
     this.setState(prevState => {
-      return {contacts: [...prevState.contacts, contact]}
-    })
-  }
-  
+      return { contacts: [...prevState.contacts, contact] };
+    });
+  };
 
   render() {
     const { contacts, filter } = this.state;
@@ -46,7 +47,7 @@ export class App extends Component {
     return (
       <Container>
         <h1>Phonebook</h1>
-        <ContactForm updateContact={this.addContact}/>
+        <ContactForm updateContact={this.addContact} />
         <h2>Contacts</h2>
         <Filter filter={filter} onUpdateFilter={this.handleFilter} />
         {visibleContacts.length > 0 && (
