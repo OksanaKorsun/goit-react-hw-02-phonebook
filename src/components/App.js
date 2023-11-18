@@ -1,4 +1,3 @@
-
 import { Component } from 'react';
 import initialContacts from '../contacts.json';
 import { ContactForm } from './ContactForm/ContactForm';
@@ -10,17 +9,29 @@ export class App extends Component {
     contacts: initialContacts,
     filter: '',
   };
-  
-  handleFilter = () => {};
+
+  handleFilter = evt => {
+    this.setState({
+      filter: evt.target.value,
+    });
+  };
+  deleteContact = (contactId) => {
+    this.setState(prevState => {return {contacts: prevState.contacts.filter(item => item.id !== contactId)}})
+  }
+
   render() {
+    const { contacts, filter } = this.state;
+    const visibleContacts = contacts.filter(contact => {
+      return contact.name.toLowerCase().includes(filter.toLowerCase());
+    });
     return (
       <div>
         <h1>Phonebook</h1>
         <ContactForm />
         <h2>Contacts</h2>
-        <Filter />
-        <ContactList items={this.state.contacts} />
-        <GlobalStyle/>
+        <Filter filter={filter} onUpdateFilter={this.handleFilter} />
+        {visibleContacts.length > 0 && (<ContactList items={visibleContacts} onDelete={ this.deleteContact} />)}
+        <GlobalStyle />
       </div>
     );
   }
