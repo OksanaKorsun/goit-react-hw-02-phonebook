@@ -39,19 +39,26 @@ export class App extends Component {
     });
   };
 
-  render() {
+  filteredList = () => {
     const { contacts, filter } = this.state;
-    const visibleContacts = contacts.filter(contact => {
+    return contacts.filter(contact => {
       return contact.name.toLowerCase().includes(filter.toLowerCase());
     });
+  };
+
+  render() {
+    const { filter } = this.state;
     return (
       <Container>
         <h1>Phonebook</h1>
         <ContactForm updateContact={this.addContact} />
         <h2>Contacts</h2>
         <Filter filter={filter} onUpdateFilter={this.handleFilter} />
-        {visibleContacts.length > 0 && (
-          <ContactList items={visibleContacts} onDelete={this.deleteContact} />
+        {this.filteredList().length > 0 && (
+          <ContactList
+            items={this.filteredList()}
+            onDelete={this.deleteContact}
+          />
         )}
         <GlobalStyle />
       </Container>
