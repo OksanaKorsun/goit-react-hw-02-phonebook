@@ -7,13 +7,13 @@ import {
 export const ContactList = ({ items, onDelete }) => {
   return (
     <List>
-      {items.map(item => {
+      {items.map(({id, name, number}) => {
         return (
-          <ListItem key={item.id}>
+          <ListItem key={id}>
             <ListItemText>
-              {item.name} - {item.number}
+              {name} - {number}
             </ListItemText>
-            <DeleteButton onClick={() => onDelete(item.id)}>
+            <DeleteButton onClick={() => onDelete(id)}>
               Delete
             </DeleteButton>
           </ListItem>
